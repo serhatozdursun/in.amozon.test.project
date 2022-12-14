@@ -17,7 +17,7 @@ public class AmazonTest extends BasePage {
                 .checkIfSortedHighToLow()
                 .clickDesiredHighestPriceProduct(1)
                 .checkIfAboutUsPresent()
-                .logAboutUs();
+                .logAboutItem();
 
     }
 }

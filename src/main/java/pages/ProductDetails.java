@@ -27,22 +27,24 @@ public class ProductDetails {
     }
 
     @FindBy(css = "#feature-bullets h1")
-    private WebElement aboutUsTitle;
+    private WebElement aboutItemTitle;
 
     @FindBy(css = "#feature-bullets span")
-    private List<WebElement> aboutUsText;
+    private List<WebElement> aboutItemText;
 
     public ProductDetails checkIfAboutUsPresent() {
         assertTrue(isElementPresent(By.id("feature-bullets")));
+        log.info("about this item is present on page");
         return this;
     }
 
-    public ProductDetails logAboutUs() {
-        log.info(aboutUsTitle.getText());
-        aboutUsText
+    public ProductDetails logAboutItem() {
+        log.info(aboutItemTitle.getText());
+        aboutItemText
                 .stream()
                 .map(WebElement::getText)
-                .forEach(System.out::println);
+                .forEach(log::info);
+        log.info("about this item is logged");
         return this;
     }
 

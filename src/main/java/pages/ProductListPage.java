@@ -69,12 +69,14 @@ public class ProductListPage {
                     following product price is %s""", priceString1, priceString2);
             assertTrue(price1 >= price2, message);
         }
+        log.info("High To Low orders is correct");
         return this;
     }
 
     public ProductDetails clickDesiredHighestPriceProduct(int index){
         new ClickHelper().clickWithJavaScript(productPrices.get(index));
         new SwitchHelper().switchToWindow();
+        log.info("Second highest priced product was clicked");
         return new ProductDetails();
     }
 }
