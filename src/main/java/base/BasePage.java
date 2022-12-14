@@ -25,8 +25,11 @@ public class BasePage {
 
     private static DriverService service;
 
+    private static int waitTime;
     @BeforeAll
     public static void beforeAll() {
+        var waitTime = Configuration.instance().getIntegerValueOfProp("wait.time");
+        setWaitTime(waitTime);
         String browserName = System.getProperty("browser") != null ? System.getProperty("browser") : "chrome";
         Browsers browserType = Browsers.valueOf(browserName.toUpperCase(Locale.ROOT));
         DriverManager.instance().setBrowsersType(browserType);
@@ -51,7 +54,7 @@ public class BasePage {
             DriverManager.instance().createDriver(gridUrl);
         log.info("{} is lunched", DriverManager.instance().getBrowsersType());
         DriverManager.instance().getDriver().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
-        DriverManager.instance().getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+        DriverManager.instance().getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(getWaitTime()));
         var baseUrl = Configuration.instance().getStringValueOfProp("base.url");
         DriverManager.instance().getDriver().get(baseUrl);
         DriverManager.instance().getDriver().manage().deleteAllCookies();
@@ -67,5 +70,13 @@ public class BasePage {
     @AfterAll
     public static void afterAll() {
         service.stop();
+    }
+
+    public static int getWaitTime() {
+        return waitTime;
+    }
+
+    private static void setWaitTime(int time) {
+        waitTime = time;
     }
 }
