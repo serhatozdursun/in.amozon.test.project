@@ -30,7 +30,10 @@ public class BasePage {
     public static void beforeAll() {
         var waitTime = Configuration.instance().getIntegerValueOfProp("wait.time");
         setWaitTime(waitTime);
-        String browserName = System.getProperty("browser") != null ? System.getProperty("browser") : "chrome";
+        // get default browser from config if it is null the default will be chrome
+        String browserName = Configuration.instance().getStringValueOfProp("default.browser") != null
+                ? Configuration.instance().getStringValueOfProp("default.browser")
+                : "chrome";
         Browsers browserType = Browsers.valueOf(browserName.toUpperCase(Locale.ROOT));
         DriverManager.instance().setBrowsersType(browserType);
         var gridUrlString = Configuration.instance().getStringValueOfProp("grid.url");
