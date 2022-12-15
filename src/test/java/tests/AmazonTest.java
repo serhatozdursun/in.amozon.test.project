@@ -2,9 +2,11 @@ package tests;
 
 import base.BasePage;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import pages.HomePage;
 
-public class AmazonTest extends BasePage {
+@ExtendWith(BasePage.class)
+public class AmazonTest {
 
     @Test
     public void testStructure() {

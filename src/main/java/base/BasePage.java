@@ -6,10 +6,7 @@ import enums.Browsers;
 import exeptions.InvalidGridUrl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.*;
 import org.openqa.selenium.remote.service.DriverService;
 import utils.Configuration;
 
@@ -18,7 +15,8 @@ import java.net.URL;
 import java.time.Duration;
 import java.util.Locale;
 
-public class BasePage {
+public class BasePage implements
+        BeforeAllCallback, AfterAllCallback, BeforeEachCallback, AfterEachCallback {
     private final static Logger log = LogManager.getLogger(BasePage.class);
     private static Boolean isLocal;
     private static URL gridUrl;
@@ -26,8 +24,27 @@ public class BasePage {
     private static DriverService service;
 
     private static int waitTime;
-    @BeforeAll
-    public static void beforeAll() {
+
+    public static int getWaitTime() {
+        return waitTime;
+    }
+
+    private static void setWaitTime(int time) {
+        waitTime = time;
+    }
+
+    @Override
+    public void afterAll(ExtensionContext extensionContext) {
+        service.stop();
+    }
+
+    @Override
+    public void afterEach(ExtensionContext extensionContext){
+        DriverManager.instance().quitDriver();
+    }
+
+    @Override
+    public void beforeAll(ExtensionContext extensionContext)  {
         var waitTime = Configuration.instance().getIntegerValueOfProp("wait.time");
         setWaitTime(waitTime);
         // get default browser from config if it is null the default will be chrome
@@ -49,8 +66,8 @@ public class BasePage {
         }
     }
 
-    @BeforeEach
-    public void beforeEach() {
+    @Override
+    public void beforeEach(ExtensionContext extensionContext) {
         if (isLocal)
             DriverManager.instance().createDriver(service.getUrl());
         else
@@ -63,23 +80,5 @@ public class BasePage {
         DriverManager.instance().getDriver().manage().deleteAllCookies();
         log.info("{} is loaded", baseUrl);
         DriverManager.instance().getDriver().manage().window().fullscreen();
-    }
-
-    @AfterEach
-    public void afterEach() {
-        DriverManager.instance().quitDriver();
-    }
-
-    @AfterAll
-    public static void afterAll() {
-        service.stop();
-    }
-
-    public static int getWaitTime() {
-        return waitTime;
-    }
-
-    private static void setWaitTime(int time) {
-        waitTime = time;
     }
 }
