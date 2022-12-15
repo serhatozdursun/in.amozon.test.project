@@ -4,14 +4,20 @@ import driver.DriverManager;
 import driver.DriverServiceManager;
 import enums.Browsers;
 import exeptions.InvalidGridUrl;
+import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.extension.*;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.remote.service.DriverService;
 import utils.Configuration;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Path;
 import java.time.Duration;
 import java.util.Locale;
 
@@ -39,12 +45,16 @@ public class BasePage implements
     }
 
     @Override
-    public void afterEach(ExtensionContext extensionContext){
+    public void afterEach(ExtensionContext extensionContext) {
+        if (extensionContext.getExecutionException().isPresent()) {
+            takeSnapShot();
+            log.error("Test is unsuccessful :\n{}", extensionContext.getExecutionException());
+        }
         DriverManager.instance().quitDriver();
     }
 
     @Override
-    public void beforeAll(ExtensionContext extensionContext)  {
+    public void beforeAll(ExtensionContext extensionContext) {
         var waitTime = Configuration.instance().getIntegerValueOfProp("wait.time");
         setWaitTime(waitTime);
         // get default browser from config if it is null the default will be chrome
@@ -81,4 +91,19 @@ public class BasePage implements
         log.info("{} is loaded", baseUrl);
         DriverManager.instance().getDriver().manage().window().fullscreen();
     }
+
+    public static void takeSnapShot() {
+
+        var takeSS = (TakesScreenshot) DriverManager.instance().getDriver();
+        var ss = takeSS.getScreenshotAs(OutputType.FILE);
+        File destFile = new File(Path.of(System.getProperty("user.dir"), "screen_shots", "last_error_ss.png").toUri());
+        try {
+            FileUtils.copyFile(ss, destFile);
+            log.error("the error screen shots path is \"{}\"", destFile.getPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
+
