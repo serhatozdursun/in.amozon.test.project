@@ -2,7 +2,8 @@
 
 ![badge](https://github.com/serhatozdursun/in.amozon.test.project/actions/workflows/maven.yml/badge.svg)
 
-(failing because of [chrome issue](https://bugs.chromium.org/p/chromedriver/issues/detail?id=2473))
+failing because of [chrome issue](https://bugs.chromium.org/p/chromedriver/issues/detail?id=2473)
+,in local execution no issue.
 
 - Example Test Automation Framework
     * [Overview](#overview)
