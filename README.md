@@ -1,5 +1,9 @@
 # Test Automation Framework for amazon.in
 
+![badge](https://github.com/serhatozdursun/in.amozon.test.project/actions/workflows/maven.yml/badge.svg)
+
+(failing because of [chrome issue](https://bugs.chromium.org/p/chromedriver/issues/detail?id=2473))
+
 - Example Test Automation Framework
     * [Overview](#overview)
         + [Requirements](#requirements)
