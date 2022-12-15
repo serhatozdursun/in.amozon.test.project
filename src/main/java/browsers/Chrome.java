@@ -17,6 +17,7 @@ public class Chrome implements BrowserSelectable {
         options.addArguments("--start-fullscreen");
         options.addArguments("--disable-logging");
         options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--no-sandbox");
         return options;
     }
 
