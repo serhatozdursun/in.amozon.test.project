@@ -2,6 +2,7 @@ package browsers;
 
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.URL;
@@ -18,6 +19,7 @@ public class Firefox implements BrowserSelectable {
         options.addArguments("--disable-notifications");
         options.addArguments("--start-fullscreen");
         options.setCapability("prefs", prefs);
+        options.setCapability(CapabilityType.BROWSER_NAME,"firefox");
         return options;
     }
 

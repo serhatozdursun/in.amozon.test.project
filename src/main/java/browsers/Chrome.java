@@ -2,6 +2,7 @@ package browsers;
 
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.URL;
@@ -10,7 +11,9 @@ public class Chrome implements BrowserSelectable {
 
     @Override
     public MutableCapabilities getCapabilities() {
-        ChromeOptions options = new ChromeOptions();
+        var options = new ChromeOptions();
+        var caps = new MutableCapabilities();
+        caps.setCapability(CapabilityType.BROWSER_NAME,"chrome");
         options.addArguments("--kiosk");
         options.addArguments("--log-level=3");
         options.addArguments("--disable-notifications");
@@ -19,6 +22,7 @@ public class Chrome implements BrowserSelectable {
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--no-sandbox");
         options.addArguments("--headless");
+        caps.setCapability(ChromeOptions.CAPABILITY, options);
         return options;
     }
 

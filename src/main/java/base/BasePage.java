@@ -68,6 +68,7 @@ public class BasePage implements
             isLocal = true;
             service = DriverServiceManager.getInstances().getService();
         } else {
+            isLocal = false;
             try {
                 gridUrl = new URL(gridUrlString);
             } catch (MalformedURLException e) {
