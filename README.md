@@ -50,7 +50,7 @@ default.browser=safari
 
 ## Selenium Grid
 
-if you pass the selenium the grid URL in to
+if you pass the selenium grid URL in to
 the [config.properties](https://github.com/serhatozdursun/in.amozon.test.project/blob/master/src/main/resources/config.properties)
 file, as a parameter like below the test will run on the selenium grid
 
