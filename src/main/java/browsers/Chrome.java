@@ -1,6 +1,7 @@
 package browsers;
 
 import org.openqa.selenium.MutableCapabilities;
+import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -21,7 +22,10 @@ public class Chrome implements BrowserSelectable {
         options.addArguments("--disable-logging");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--no-sandbox");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--force-device-scale-factor=1");
         options.addArguments("--headless");
+        options.setPageLoadStrategy(PageLoadStrategy.NONE);
         caps.setCapability(ChromeOptions.CAPABILITY, options);
         return options;
     }

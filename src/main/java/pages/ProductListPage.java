@@ -17,7 +17,7 @@ public class ProductListPage extends Page {
 
     public ProductListPage() {
         initPage(this);
-        log.info("Home page is loaded");
+        log.info("Product List page is loaded");
     }
 
     @FindBy(xpath = "//span[text()='Samsung']")

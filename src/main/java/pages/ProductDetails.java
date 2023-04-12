@@ -16,7 +16,7 @@ public class ProductDetails extends Page {
 
     public ProductDetails() {
         initPage(this);
-        log.info("Home page is loaded");
+        log.info("Product page is loaded");
     }
 
     @FindBy(css = "#feature-bullets h1")

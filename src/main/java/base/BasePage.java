@@ -48,7 +48,6 @@ public class BasePage implements
     public void afterEach(ExtensionContext extensionContext) {
         if (extensionContext.getExecutionException().isPresent()) {
             takeSnapShot();
-            log.error("Test is unsuccessful :\n{}", extensionContext.getExecutionException());
         }
         DriverManager.instance().quitDriver();
     }
@@ -84,7 +83,7 @@ public class BasePage implements
         else
             DriverManager.instance().createDriver(gridUrl);
         log.info("{} is lunched", DriverManager.instance().getBrowsersType());
-        DriverManager.instance().getDriver().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
+        DriverManager.instance().getDriver().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
         DriverManager.instance().getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(getWaitTime()));
         var baseUrl = Configuration.instance().getStringValueOfProp("base.url");
         DriverManager.instance().getDriver().get(baseUrl);
@@ -100,7 +99,7 @@ public class BasePage implements
         File destFile = new File(Path.of(System.getProperty("user.dir"), "screen_shots", "last_error_ss.png").toUri());
         try {
             FileUtils.copyFile(ss, destFile);
-            log.error("the error screen shots path is \"{}\"", destFile.getPath());
+            log.warn("the error screen shots path is \"{}\"", destFile.getPath());
         } catch (IOException e) {
             e.printStackTrace();
         }
