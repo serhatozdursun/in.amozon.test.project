@@ -21,7 +21,7 @@ public class Chrome implements BrowserSelectable {
         options.addArguments("--disable-logging");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--no-sandbox");
-        options.addArguments("--headless");
+        //options.addArguments("--headless");
         caps.setCapability(ChromeOptions.CAPABILITY, options);
         return options;
     }

@@ -11,7 +11,6 @@ public class ClickHelper extends WaitHelper {
 
 
     public void clickElement(WebElement element) {
-        log.info("Clicking on \"{}\"", element);
         new ScrollHelper().scrollToElement(element);
         elementToBeClickable(element).click();
     }
@@ -19,6 +18,5 @@ public class ClickHelper extends WaitHelper {
     public void clickWithJavaScript(WebElement element) {
         var executor = new JavascriptHelper();
         executor.executeJavascript("arguments[0].click()", element);
-        log.info("Clicked on \"{}\"", element);
     }
 }

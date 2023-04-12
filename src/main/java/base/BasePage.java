@@ -84,7 +84,7 @@ public class BasePage implements
         else
             DriverManager.instance().createDriver(gridUrl);
         log.info("{} is lunched", DriverManager.instance().getBrowsersType());
-        DriverManager.instance().getDriver().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
+        DriverManager.instance().getDriver().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
         DriverManager.instance().getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(getWaitTime()));
         var baseUrl = Configuration.instance().getStringValueOfProp("base.url");
         DriverManager.instance().getDriver().get(baseUrl);
